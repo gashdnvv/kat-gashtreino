@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Treino Diário - Pré-Game</title>
+    <title>Treino Mecânicas Katarina - M2→GM</title>
     <style>
         * {
             margin: 0;
@@ -12,307 +12,360 @@
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #000000 100%);
             color: white;
             min-height: 100vh;
             padding: 20px;
         }
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
         }
         h1 {
             text-align: center;
-            font-size: 2.5em;
+            font-size: 3em;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #DC143C, 0 0 20px #DC143C; }
+            to { text-shadow: 0 0 20px #FF0000, 0 0 30px #FF0000; }
         }
         .subtitle {
             text-align: center;
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            opacity: 0.9;
+            font-size: 1.4em;
+            margin-bottom: 35px;
+            opacity: 0.95;
+            font-weight: 600;
         }
         .timer {
-            background: rgba(255,255,255,0.2);
+            background: rgba(220, 20, 60, 0.3);
             backdrop-filter: blur(10px);
-            padding: 30px;
+            padding: 35px;
             border-radius: 20px;
             text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            margin-bottom: 35px;
+            box-shadow: 0 8px 32px rgba(220, 20, 60, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
         .timer-display {
-            font-size: 4em;
+            font-size: 5em;
             font-weight: bold;
             margin: 20px 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            color: #FFD700;
         }
         .btn {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2em;
+            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 18px 45px;
+            font-size: 1.3em;
             color: white;
             border-radius: 50px;
             cursor: pointer;
             margin: 10px;
-            transition: transform 0.2s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            font-weight: 600;
         }
         .btn:hover {
-            transform: scale(1.05);
+            transform: scale(1.08);
+            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.6);
         }
         .btn:active {
             transform: scale(0.95);
         }
-        .checklist {
-            background: rgba(255,255,255,0.2);
+        .section {
+            background: rgba(220, 20, 60, 0.25);
             backdrop-filter: blur(10px);
-            padding: 30px;
+            padding: 35px;
             border-radius: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255, 255, 255, 0.15);
         }
-        .checklist h2 {
-            font-size: 1.8em;
-            margin-bottom: 20px;
+        .section h2 {
+            font-size: 2.2em;
+            margin-bottom: 25px;
             text-align: center;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         .check-item {
-            background: rgba(255,255,255,0.1);
-            padding: 15px 20px;
-            margin: 10px 0;
-            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 22px 25px;
+            margin: 15px 0;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             cursor: pointer;
             transition: all 0.3s;
+            border: 2px solid transparent;
         }
         .check-item:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateX(5px);
+            background: rgba(220, 20, 60, 0.5);
+            transform: translateX(10px);
+            border-color: rgba(255, 255, 255, 0.4);
         }
         .check-item.completed {
-            background: rgba(76, 175, 80, 0.3);
+            background: rgba(0, 139, 0, 0.4);
+            border-color: #00FF00;
+            opacity: 0.75;
+        }
+        .check-item.completed .exercise-name {
             text-decoration: line-through;
-            opacity: 0.7;
         }
         .checkbox {
-            width: 30px;
-            height: 30px;
-            border: 3px solid white;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #FFD700;
             border-radius: 50%;
-            margin-right: 15px;
+            margin-right: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5em;
+            font-size: 1.8em;
             flex-shrink: 0;
+            background: rgba(0,0,0,0.4);
         }
         .check-item.completed .checkbox {
-            background: #4CAF50;
-            border-color: #4CAF50;
+            background: #00FF00;
+            border-color: #00FF00;
         }
         .exercise-name {
-            font-size: 1.2em;
-            font-weight: 500;
+            font-size: 1.4em;
+            font-weight: 700;
+            margin-bottom: 8px;
         }
         .exercise-details {
-            font-size: 0.9em;
-            opacity: 0.8;
-            margin-top: 5px;
+            font-size: 1.05em;
+            opacity: 0.9;
+            margin-top: 6px;
+            line-height: 1.5;
         }
         .progress-bar {
-            background: rgba(255,255,255,0.2);
-            height: 30px;
-            border-radius: 15px;
+            background: rgba(0,0,0,0.5);
+            height: 40px;
+            border-radius: 25px;
             overflow: hidden;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255,255,255,0.2);
         }
         .progress-fill {
-            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            background: linear-gradient(90deg, #00FF00, #32CD32);
             height: 100%;
             width: 0%;
-            transition: width 0.3s;
+            transition: width 0.4s;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            font-size: 1.2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
         .reset-btn {
-            background: linear-gradient(135deg, #ff6b6b 0%, #c92a2a 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #4B0000 100%);
             margin-top: 20px;
         }
         .complete-msg {
             text-align: center;
-            font-size: 2em;
-            margin: 20px 0;
-            animation: pulse 2s infinite;
+            font-size: 2.5em;
+            margin: 30px 0;
+            animation: pulse 1.5s infinite;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 0 0 20px #FFD700;
         }
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.1); }
         }
+        .combo-tag {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.25);
+            color: #FFD700;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-left: 12px;
+            font-weight: bold;
+            border: 1px solid #FFD700;
+        }
+        .difficulty {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        .easy { background: rgba(0, 255, 0, 0.2); color: #00FF00; border: 1px solid #00FF00; }
+        .medium { background: rgba(255, 165, 0, 0.2); color: #FFA500; border: 1px solid #FFA500; }
+        .hard { background: rgba(255, 0, 0, 0.2); color: #FF0000; border: 1px solid #FF0000; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🔥 TREINO DIÁRIO PRÉ-GAME</h1>
-        <div class="subtitle">Aquecimento Master → Grandmaster</div>
+        <h1>🗡️ TREINO KATARINA</h1>
+        <div class="subtitle">Master 2 → Grandmaster | Wild Rift 💎</div>
 
         <div class="timer">
-            <h2>⏱️ Timer Geral</h2>
+            <h2>⏱️ TIMER DE TREINO</h2>
             <div class="timer-display" id="timerDisplay">30:00</div>
             <button class="btn" onclick="startTimer()">▶️ Iniciar</button>
             <button class="btn" onclick="pauseTimer()">⏸️ Pausar</button>
             <button class="btn reset-btn" onclick="resetTimer()">🔄 Resetar</button>
         </div>
 
-        <div class="checklist">
-            <h2>📋 CHECKLIST DIÁRIA</h2>
+        <!-- COMBOS BÁSICOS -->
+        <div class="section">
+            <h2>⚔️ COMBOS BÁSICOS</h2>
             <div class="progress-bar">
-                <div class="progress-fill" id="progressBar">0%</div>
+                <div class="progress-fill" id="progressBasic">0%</div>
             </div>
 
-            <div class="check-item" onclick="toggleCheck(this)">
+            <div class="check-item basic" onclick="toggleCheck(this, 'basic')">
                 <div class="checkbox"></div>
                 <div>
-                    <div class="exercise-name">🤲 Aquecimento de Pulsos</div>
-                    <div class="exercise-details">10 rotações cada lado + alongamento</div>
+                    <div class="exercise-name">🗡️ Poke Seguro <span class="combo-tag">E-W-Q</span><span class="difficulty easy">FÁCIL</span></div>
+                    <div class="exercise-details">15 repetições | Shunpo (E) em minion/campeão → W instantâneo → Q pra poke | Use pra farmear seguro</div>
                 </div>
             </div>
 
-            <div class="check-item" onclick="toggleCheck(this)">
+            <div class="check-item basic" onclick="toggleCheck(this, 'basic')">
                 <div class="checkbox"></div>
                 <div>
-                    <div class="exercise-name">✊ Exercícios de Dedos</div>
-                    <div class="exercise-details">Abrir/fechar mãos 20x + alongar cada dedo</div>
+                    <div class="exercise-name">⚡ All-in Simples <span class="combo-tag">Q-E-W-AA-R</span><span class="difficulty easy">FÁCIL</span></div>
+                    <div class="exercise-details">12 repetições | Q primeiro → ESPERA dagger cair → E no dagger → W → Auto-ataque → Ultimate</div>
                 </div>
             </div>
 
-            <div class="check-item" onclick="toggleCheck(this)">
+            <div class="check-item basic" onclick="toggleCheck(this, 'basic')">
                 <div class="checkbox"></div>
                 <div>
-                    <div class="exercise-name">👀 Exercícios de Olhos</div>
-                    <div class="exercise-details">Olhar longe/perto 10x + rotações oculares</div>
+                    <div class="exercise-name">🔄 Reset Básico <span class="combo-tag">E-W-Q-E</span><span class="difficulty medium">MÉDIO</span></div>
+                    <div class="exercise-details">15 repetições | E-W-Q rapidinho → Espera dagger cair → E de novo no dagger (treina timing do reset!)</div>
                 </div>
             </div>
 
-            <div class="check-item" onclick="toggleCheck(this)">
+            <div class="check-item basic" onclick="toggleCheck(this, 'basic')">
                 <div class="checkbox"></div>
                 <div>
-                    <div class="exercise-name">🦒 Alongamento de Pescoço</div>
-                    <div class="exercise-details">4 direções, 10 segundos cada</div>
+                    <div class="exercise-name">💥 Burst Rápido <span class="combo-tag">Q-E-W-R</span><span class="difficulty medium">MÉDIO</span></div>
+                    <div class="exercise-details">10 repetições | Q → E no dagger → W → R imediato | Bom pra deletar alvo isolado</div>
                 </div>
             </div>
-
-            <div class="check-item" onclick="toggleCheck(this)">
-                <div class="checkbox"></div>
-                <div>
-                    <div class="exercise-name">💪 Ombros e Braços</div>
-                    <div class="exercise-details">Rotações circulares 15x + alongar tríceps</div>
-                </div>
-            </div>
-
-            <div class="check-item" onclick="toggleCheck(this)">
-                <div class="checkbox"></div>
-                <div>
-                    <div class="exercise-name">🧘 Alongamento de Costas</div>
-                    <div class="exercise-details">Gato/vaca 10x + torção sentado</div>
-                </div>
-            </div>
-
-            <div class="check-item" onclick="toggleCheck(this)">
-                <div class="checkbox"></div>
-                <div>
-                    <div class="exercise-name">🧠 Respiração de Foco</div>
-                    <div class="exercise-details">5 respirações profundas (4s inspira, 6s expira)</div>
-                </div>
-            </div>
-
-            <div class="check-item" onclick="toggleCheck(this)">
-                <div class="checkbox"></div>
-                <div>
-                    <div class="exercise-name">🎯 Exercício de Reação</div>
-                    <div class="exercise-details">20 cliques rápidos + tracking circular</div>
-                </div>
-            </div>
-
-            <div id="completeMsg" style="display: none;">
-                <div class="complete-msg">🏆 TREINO COMPLETO! BORA PRO RUSH!</div>
-            </div>
-
-            <button class="btn reset-btn" onclick="resetChecklist()">🔄 Resetar Checklist</button>
         </div>
-    </div>
 
-    <script>
-        let timerInterval;
-        let timeLeft = 1800; // 30 minutos em segundos
-        let isRunning = false;
+        <!-- COMBOS AVANÇADOS -->
+        <div class="section">
+            <h2>🔥 COMBOS AVANÇADOS</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressAdvanced">0%</div>
+            </div>
 
-        function updateTimerDisplay() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            document.getElementById('timerDisplay').textContent = 
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
+            <div class="check-item advanced" onclick="toggleCheck(this, 'advanced')">
+                <div class="checkbox"></div>
+                <div>
+                    <div class="exercise-name">💀 Combo Completo <span class="combo-tag">E-W-Q-E-AA-R-E</span><span class="difficulty hard">DIFÍCIL</span></div>
+                    <div class="exercise-details">8 repetições | E-W-Q → E no dagger → Auto → R → E de novo quando sair de R | Pratica resets múltiplos!</div>
+                </div>
+            </div>
 
-        function startTimer() {
-            if (!isRunning) {
-                isRunning = true;
-                timerInterval = setInterval(() => {
-                    if (timeLeft > 0) {
-                        timeLeft--;
-                        updateTimerDisplay();
-                    } else {
-                        pauseTimer();
-                        alert('⏰ Tempo finalizado! Bora jogar! 🎮');
-                    }
-                }, 1000);
-            }
-        }
+            <div class="check-item advanced" onclick="toggleCheck(this, 'advanced')">
+                <div class="checkbox"></div>
+                <div>
+                    <div class="exercise-name">⚡ Flash Engage <span class="combo-tag">Flash-E-W-Q-R</span><span class="difficulty hard">DIFÍCIL</span></div>
+                    <div class="exercise-details">5 repetições | Flash em cima do alvo → E instantâneo → W-Q-R super rápido | Treina velocidade!</div>
+                </div>
+            </div>
 
-        function pauseTimer() {
-            isRunning = false;
-            clearInterval(timerInterval);
-        }
+            <div class="check-item advanced" onclick="toggleCheck(this, 'advanced')">
+                <div class="checkbox"></div>
+                <div>
+                    <div class="exercise-name">🎯 Ultimate Cancel <span class="combo-tag">E-W-R-E</span><span class="difficulty hard">DIFÍCIL</span></div>
+                    <div class="exercise-details">10 repetições | E-W → R → Cancela R com E quando precisa fugir/reposicionar | Salva vida!</div>
+                </div>
+            </div>
 
-        function resetTimer() {
-            pauseTimer();
-            timeLeft = 1800;
-            updateTimerDisplay();
-        }
+            <div class="check-item advanced" onclick="toggleCheck(this, 'advanced')">
+                <div class="checkbox"></div>
+                <div>
+                    <div class="exercise-name">🏃 Ward Hop <span class="combo-tag">Ward-E</span><span class="difficulty medium">MÉDIO</span></div>
+                    <div class="exercise-details">15 repetições | Coloca ward rapidinho → E na ward pra escapar | Treina velocidade do ward!</div>
+                </div>
+            </div>
 
-        function toggleCheck(element) {
-            element.classList.toggle('completed');
-            updateProgress();
-        }
+            <div class="check-item advanced" onclick="toggleCheck(this, 'advanced')">
+                <div class="checkbox"></div>
+                <div>
+                    <div class="exercise-name">🔄 Triple Reset <span class="combo-tag">Q-E-W-E-Q-E</span><span class="difficulty hard">DIFÍCIL</span></div>
+                    <div class="exercise-details">5 repetições | Q-E-W → E no dagger → Q de novo → E no segundo dagger | Combo clean up!</div>
+                </div>
+            </div>
+        </div>
 
-        function updateProgress() {
-            const items = document.querySelectorAll('.check-item');
-            const completed = document.querySelectorAll('.check-item.completed').length;
-            const total = items.length;
-            const percentage = Math.round((completed / total) * 100);
-            
-            const progressBar = document.getElementById('progressBar');
-            progressBar.style.width = percentage + '%';
-            progressBar.textContent = percentage + '%';
+        <!-- PRACTICE TOOL -->
+        <div class="section">
+            <h2>🎮 PRACTICE TOOL - FUNDAMENTOS</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFundamentals">0%</div>
+            </div>
 
-            if (percentage === 100) {
-                document.getElementById('completeMsg').style.display = 'block';
-            } else {
-                document.getElementById('completeMsg').style.display = 'none';
-            }
-        }
+            <div class="check-item fundamentals" onclick="toggleCheck(this, 'fundamentals')">
+                <div class="checkbox"></div>
+                <div>
+                    <div class="exercise-name">🎯 Posicionamento de Q</div>
+                    <div class="exercise-details">5 min | Treina jogar Q pra acertar múltiplos bonecos | Aprende onde o dagger cai exatamente</div>
+                </div>
+            </div>
 
-        function resetChecklist() {
-            document.querySelectorAll('.check-item').forEach(item => {
-                item.classList.remove('completed');
-            });
-            updateProgress();
-        }
-    </script>
-</body>
-</html>
+            <div class="check-item fundamentals" onclick="toggleCheck(this, 'fundamentals')">
+                <div class="checkbox"></div>
+                <div>
+                    <div class="exercise-name">⏱️ Timing de Dagger</div>
+                    <div class="exercise-details">5 min | Joga Q e W → ESPERA cair antes de pegar | Treina paciência pra não pegar cedo demais</div>
+                </div>
+            </div>
+
+            <div class="check-item fundamentals" onclick="toggleCheck(this, 'fundamentals')">
+                <div class="checkbox"></div>
+                <div>
+                    <div class="exercise-name">💨 Velocidade de Combo</div>
+                    <div class="exercise-details">5 min | Faz E-W-Q o mais rápido possível | Cronometra: tem que sair em menos de 1 segundo</div>
+                </div>
+            </div>
+
+            <div class="check-item fundamentals" onclick="toggleCheck(this, 'fundamentals')">
+                <div class="checkbox"></div>
+                <div>
+                    <div class="exercise-name">🔥 Cancelamento de Animação</div>
+                    <div class="exercise-details">5 min | Treina usar E pra cancelar animação de W e Q | Deixa combo mais suave</div>
+                </div>
+            </div>
+
+            <div class="check-item fundamentals" onclick="toggleCheck(this, 'fundamentals')">
+                <div class="checkbox"></div>
+                <div>
+                    <div class="exercise-name">⚔️ Simulação de TeamFight</div>
+                    <div class="exercise-details">5 min | Coloca vários bonecos → Treina entrar DEPOIS do CC → Limpa com resets</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MENTAL GAME -->
+        <div class="section">
+            <h2>🧠 MENTAL GAME</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressMental">0%</div>
+            </div>
+
+            <div class="check-item mental" onclick="toggleCheck(this, 'mental')">
+                <div class="checkbox"></div>
+                <div>
+                    <div class="exercise-name">⏳ "Esperar o Dagger Cair"</div>
+                    <div class="exercise-details">Repete 10x em voz alta: "EU ESPERO O DAGGER CAIR ANTES DE USAR E"</div>
+                </div>
+            </dium">MÉDIO</span></div>
+                    <div class="exercise-details">15 repetições | E-W-Q rapid
