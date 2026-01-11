@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KATARINA - TREINO COMPLETO 30 MIN</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --secondary: #ec4899;
+            --danger: #ef4444;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --surface2: #334155;
+            --text: #f1f5f9;
+            --text-secondary: #cbd5e1;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg) 0%, #1a1f3a 100%);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(236, 72, 153, 0.15);
+            border-bottom: 2px solid rgba(236, 72, 153, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(236, 72, 153, 0.5), transparent);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            font-size: 0.95em;
+            opacity: 0.85;
+            color: #cbd5e1;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 20px;
+        }
+
+        .video-section {
+            background: var(--surface);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(236, 72, 153, 0.15);
+        }
+
+        .video-player {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: black;
+            position: relative;
+        }
+
+        .video-player::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .video-player iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 20px;
+            border-bottom: 2px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .video-info h3 {
+            color: var(--secondary);
+            margin-bottom: 8px;
+            font-size: 1.2em;
+        }
+
+        .video-info p {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+
+        .explanation {
+            padding: 20px;
+            background: rgba(99, 102, 241, 0.05);
+            border-left: 4px solid var(--primary);
+        }
+
+        .explanation h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .explanation p {
+            color: var(--text-secondary);
+            margin: 8px 0;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .combo-sequence {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            color: var(--primary);
+            font-weight: 600;
+            margin: 12px 0;
+        }
+
+        .timer-section {
+            position: sticky;
+            top: 20px;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            border-radius: 16px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(236, 72, 153, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(236, 72, 153, 0.2);
+        }
+
+        .timer-label {
+            font-size: 0.95em;
+            opacity: 0.85;
+            margin-bottom: 15px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .timer-display {
+            font-size: 4em;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            background: linear-gradient(135deg, #ec4899, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+
+        .phase-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .phase-name {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .phase-task {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
+        }
+
+        .btn-start:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(236, 72, 153, 0.4);
+        }
+
+        .btn-start:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-reset {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-reset:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .progress-bar {
+            background: rgba(0, 0, 0, 0.3);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            background: white;
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .progress-text {
+            font-size: 0.85em;
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        .day-selector {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .day-btn {
+            padding: 12px 16px;
+            background: rgba(99, 102, 241, 0.08);
+            border: 2px solid rgba(99, 102, 241, 0.2);
+            border-radius: 10px;
+            color: var(--text);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            font-size: 0.9em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .day-btn:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(99, 102, 241, 0.2);
+        }
+
+        .day-btn:hover::before {
+            left: 100%;
+        }
+
+        .day-btn.active {
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            border-color: var(--secondary);
+            color: white;
+            box-shadow: 0 12px 24px rgba(236, 72, 153, 0.3);
+            transform: scale(1.05);
+        }
+
+        .schedule-section {
+            background: var(--surface);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .schedule-header {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            border-radius: 12px 12px 0 0;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .schedule-list {
+            list-style: none;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .schedule-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .schedule-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .schedule-item.active {
+            background: rgba(236, 72, 153, 0.15);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .schedule-time {
+            font-size: 0.8em;
+            color: var(--text-secondary);
+        }
+
+        .schedule-task {
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .checklist-section {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .checklist-title {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 8px 0;
+            background: rgba(99, 102, 241, 0.05);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .checklist-item:hover {
+            background: rgba(99, 102, 241, 0.15);
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+            cursor: pointer;
+            accent-color: var(--secondary);
+        }
+
+        .checklist-item.checked {
+            opacity: 0.6;
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .details-section {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .details-title {
+            color: var(--secondary);
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .detail-box {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .detail-label {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .status-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: center;
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        @media (max-width: 1024px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .timer-section {
+                position: relative;
+                top: 0;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            border-top: 2px solid var(--primary);
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🔪 KATARINA - TREINO COMPLETO 30 MIN</h1>
+        <p>Combos + Wall Jumps + Tudo que você precisa antes de Ranked</p>
+    </header>
+
+    <div class="container">
+        <div style="background: var(--surface); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+            <h3 style="color: var(--secondary); margin-bottom: 15px;">📅 Escolha seu Dia de Treino</h3>
+            <div class="day-selector" id="daySelector">
+                <button class="day-btn active" onclick="changeDay(1)">Dia 1</button>
+                <button class="day-btn" onclick="changeDay(2)">Dia 2</button>
+                <button class="day-btn" onclick="changeDay(3)">Dia 3</button>
+                <button class="day-btn" onclick="changeDay(4)">Dia 4</button>
+                <button class="day-btn" onclick="changeDay(5)">Dia 5</button>
+                <button class="day-btn" onclick="changeDay(6)">Dia 6</button>
+                <button class="day-btn" onclick="changeDay(7)">Dia 7 🏆</button>
+            </div>
+        </div>
+
+        <div class="layout">
+            <div>
+                <div class="video-section">
+                    <div class="video-player">
+                        <iframe id="videoPlayer" src="https://www.youtube.com/embed/FF5T91aVtxs" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 id="videoTitle">COMO RESETAR AUTO ATTACK DE KATARINA!</h3>
+                        <p id="videoDesc">Aprenda o reset de auto attack em português</p>
+                    </div>
+                </div>
+
+                <div class="explanation">
+                    <h4>📖 O que você vai fazer neste exercício:</h4>
+                    <p id="explanationText">Treinar o auto attack reset (AA-E-AA), que é o fundamento de toda Katarina. Este combo deve ser automático!</p>
+                    
+                    <div class="combo-sequence" id="comboSequence">AA → E → AA</div>
+
+                    <h4>⏱️ Timing:</h4>
+                    <p id="timingText">~1.1 segundos por ciclo. Você faz 20 vezes seguidas.</p>
+
+                    <h4>🎯 Objetivo:</h4>
+                    <p id="objectiveText">Fazer 20 repetições PERFEITAS, uma após outra, sem hesitar.</p>
+
+                    <h4>💡 Dicas Importantes:</h4>
+                    <p id="tipsText">Se errar uma vez, volta pro começo e faz os 20 de novo. Qualidade > quantidade!</p>
+                </div>
+
+                <div class="details-section">
+                    <h3 class="details-title">📊 Detalhes do Exercício</h3>
+                    <div class="details-grid">
+                        <div class="detail-box">
+                            <div class="detail-label">Repetições Necessárias</div>
+                            <div class="detail-value" id="repsValue">20x</div>
+                        </div>
+                        <div class="detail-box">
+                            <div class="detail-label">Tempo por Repetição</div>
+                            <div class="detail-value" id="timingValue">~1.1s</div>
+                        </div>
+                        <div class="detail-box">
+                            <div class="detail-label">Duração da Fase</div>
+                            <div class="detail-value" id="durationValue">8 min</div>
+                        </div>
+                        <div class="detail-box">
+                            <div class="detail-label">Dificuldade</div>
+                            <div class="detail-value" id="difficultyValue">⭐ Fácil</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checklist-section">
+                    <h3 class="checklist-title">✅ Checklist - Completa quando terminar</h3>
+                    <label class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <span id="check1">Combo × 20 perfeito?</span>
+                    </label>
+                    <label class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <span>Timing é crisp (rápido)?</span>
+                    </label>
+                    <label class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <span>Sem hesitação ou erros?</span>
+                    </label>
+                    <label class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox">
+                        <span>Pronto pra próximo exercício?</span>
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <div class="timer-section">
+                    <div class="timer-label">⏱️ TEMPO SESSÃO</div>
+                    <div class="timer-display" id="timerDisplay">30:00</div>
+                    
+                    <div class="phase-box">
+                        <div class="phase-name" id="phaseName">Aquecimento Mental</div>
+                        <div class="phase-task" id="phaseTask">Prepare seu mental e mãos</div>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-start" onclick="startTimer()">▶ Iniciar</button>
+                        <button class="btn btn-reset" onclick="resetTimer()">🔄 Reset</button>
+                    </div>
+
+                    <div class="progress-section">
+                        <div style="font-size: 0.85em; font-weight: 600; margin-bottom: 8px;">Progresso Treino</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+                        </div>
+                        <div class="progress-text" id="progressText">0%</div>
+                    </div>
+
+                    <div class="status-box" id="statusBox" style="display: none;">
+                        ✅ Exercício Concluído!
+                    </div>
+                </div>
+
+                <div class="schedule-section" style="margin-top: 20px;">
+                    <div class="schedule-header">📋 Sequência do Dia</div>
+                    <ul class="schedule-list" id="scheduleList"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>🔪 KATARINA TREINO COMPLETO - PRONTO ANTES DE RANKED</p>
+        <p style="margin-top: 10px;">30 minutos | 7 dias | Combos + Wall Jumps + Tudo</p>
+        <p style="font-size: 0.9em; margin-top: 10px;">Faça TODOS os 7 dias e você será CHALLENGER! 🏆</p>
+    </footer>
+
+    <script>
+        const trainingDays = {
+            1: {name: "DIA 1 - FUNDAMENTALS", focus: "Muscle Memory Básico", schedule: [{time: "0-1 min", task: "Aquecimento", exercicio: "Mental", reps: "1 min", timing: "-", duration: "1 min", difficulty: "Relaxe", desc: "Prepare-se", videoId: "FF5T91aVtxs", videoTitle: "Aquecimento Mental", videoDesc: "Prepare seu mental e mãos", explanation: "Respire fundo, sinta confortável. Você vai treinar nos próximos 30 minutos!", tips: "Mental claro = execução melhor"},{time: "1-9 min", task: "AA-E-AA", exercicio: "Combo 1.1", reps: "20x", timing: "~1.1s", duration: "8 min", difficulty: "⭐ Fácil", desc: "Auto Attack Reset", videoId: "FF5T91aVtxs", videoTitle: "COMO RESETAR AUTO ATTACK", videoDesc: "O fundamento mais importante", explanation: "O fundamento! AA, E, AA em ~1.1s. Se errar, restart. Você faz 20 repetições perfeitas!", tips: "Qualidade > quantidade. Se errar, volta pra 0!"},{time: "9-16 min", task: "Q-E-AA", exercicio: "Combo 1.2", reps: "15x", timing: "~1.1s", duration: "7 min", difficulty: "⭐ Fácil", desc: "Q Poke", videoId: "gqC3uAGRmjA", videoTitle: "Q Poke Setup", videoDesc: "Aprenda poke seguro", explanation: "Q em minion, E na dagger, AA. Timing rápido!", tips: "Dagger placement é tudo. Posição correta = setup perfeito"},{time: "16-21 min", task: "W-E", exercicio: "Combo 1.3", reps: "15x", timing: "Instant", duration: "5 min", difficulty: "⭐ Fácil", desc: "Wall Jump", videoId: "gqC3uAGRmjA", videoTitle: "Wall Jump Mechanics", videoDesc: "W+E para escape", explanation: "W plant, E outro lado, escape instant! SEMPRE use W antes!", tips: "Parede perto = funciona. Frame-perfect timing!"},{time: "21-30 min", task: "Chain", exercicio: "Todos juntos", reps: "50x", timing: "Variado", duration: "9 min", difficulty: "⭐⭐ Médio", desc: "Alternando 1.1, 1.2, 1.3", videoId: "FF5T91aVtxs", videoTitle: "Integration TIER 1", videoDesc: "Todos os combos juntos", explanation: "Alterna 1.1, 1.2, 1.3 50x. Teste sua integração!", tips: "Se conseguir 50x = DIA 1 COMPLETO!"}]},
+            2: {name: "DIA 2 - TIER 2 START", focus: "Intermediário", schedule: [{time: "0-1 min", task: "Aquecimento", exercicio: "Mental", reps: "1 min", timing: "-", duration: "1 min", difficulty: "Relaxe", desc: "Prepare", videoId: "FF5T91aVtxs", videoTitle: "Aquecimento", videoDesc: "Mental focus", explanation: "Mental claro, mãos quentes.", tips: "Same routine!"},{time: "1-9 min", task: "AA-E-AA", exercicio: "Rápido", reps: "15x", timing: "~1.1s", duration: "8 min", difficulty: "⭐ Fácil", desc: "Quick warm-up", videoId: "FF5T91aVtxs", videoTitle: "AA-E-AA Rápido", videoDesc: "Quick warm-up", explanation: "Já domina isso. Rápido, sem pensar!", tips: "Automático = você está pronto"},{time: "9-24 min", task: "Q-E-AA-E", exercicio: "Combo 2.1", reps: "15x", timing: "~2s", duration: "15 min", difficulty: "⭐⭐ Médio", desc: "1-2-1", videoId: "ZhEjjDj6NWg", videoTitle: "The 1-2-1 Combo", videoDesc: "Q-E-AA-E reset", explanation: "Q, E, AA, E RESET! Timing é apertado (~2s). E reset é ~0.5s!", tips: "E reset timing é tudo. Prática = automático"},{time: "24-30 min", task: "Sprint", exercicio: "AA-E-AA", reps: "40+", timing: "~3s", duration: "6 min", difficulty: "⭐ Fácil", desc: "Speed test", videoId: "FF5T91aVtxs", videoTitle: "Speed Test", videoDesc: "Máxima velocidade", explanation: "Faça AA-E-AA quantas vezes conseguir em 6 min. Meta: 40+!", tips: "Muscle memory está locking in!"}]},
+            3: {name: "DIA 3 - WALL JUMPS", focus: "Wall jump spots", schedule: [{time: "0-1 min", task: "Aquecimento", exercicio: "Mental", reps: "1 min", timing: "-", duration: "1 min", difficulty: "Relaxe", desc: "Prepare", videoId: "FF5T91aVtxs", videoTitle: "Aquecimento", videoDesc: "Mental", explanation: "Respire fundo.", tips: "Foco total!"},{time: "1-9 min", task: "Mid Central", exercicio: "Wall Jump", reps: "15x", timing: "Instant", duration: "8 min", difficulty: "⭐ Fácil", desc: "Central wall", videoId: "gqC3uAGRmjA", videoTitle: "Wall Jump Central", videoDesc: "Mid lane central", explanation: "W perto da parede, E outro lado = instant blink!", tips: "Parede tem que estar PERTO pra funcionar!"},{time: "9-18 min", task: "Sides", exercicio: "L+R Walls", reps: "10x cada", timing: "Instant", duration: "9 min", difficulty: "⭐⭐ Médio", desc: "Left/Right", videoId: "gqC3uAGRmjA", videoTitle: "Wall Jumps Sides", videoDesc: "Left e right sides", explanation: "Left side wall e right side wall. Cada um tem ângulo diferente!", tips: "Practice ambos = escape 360°"},{time: "18-26 min", task: "Pit Wall", exercicio: "Pit Jump", reps: "10x", timing: "Instant", duration: "8 min", difficulty: "⭐⭐⭐⭐ HARD", desc: "Pit (narrowest)", videoId: "gqC3uAGRmjA", videoTitle: "Pit Wall (HARDEST)", videoDesc: "Narrowest wall jump", explanation: "Pit wall é SUPER narrow. Timing muito tight. Mais difícil!", tips: "Se conseguir = você domina wall jumps!"},{time: "26-30 min", task: "Review", exercicio: "All walls", reps: "Varied", timing: "-", duration: "4 min", difficulty: "⭐⭐ Médio", desc: "All spots", videoId: "gqC3uAGRmjA", videoTitle: "All Walls Review", videoDesc: "Todos os spots", explanation: "Revise todos os spots do mapa!", tips: "Você dominou wall jumps!"}]},
+            4: {name: "DIA 4 - TIER 3 (COM R)", focus: "Ultimate mechanics", schedule: [{time: "0-1 min", task: "Aquecimento", exercicio: "Mental", reps: "1 min", timing: "-", duration: "1 min", difficulty: "Relaxe", desc: "Prepare", videoId: "FF5T91aVtxs", videoTitle: "Aquecimento", videoDesc: "Mental", explanation: "Mental claro.", tips: "Foco!"},{time: "1-8 min", task: "Fase 1", exercicio: "Q-AA-E-AA", reps: "10x", timing: "~1.5s", duration: "7 min", difficulty: "⭐⭐ Médio", desc: "Sem R ainda", videoId: "gqC3uAGRmjA", videoTitle: "Combo Setup Fase 1", videoDesc: "Setup antes do R", explanation: "Setup pro R depois. Q, AA, E, AA. Timing crisp!", tips: "Cada frame conta!"},{time: "8-16 min", task: "Fase 2", exercicio: "W-AA-R", reps: "10x", timing: "~0.5s + R", duration: "8 min", difficulty: "⭐⭐⭐ Difícil", desc: "Com R!", videoId: "f_ER9x1r3GQ", videoTitle: "R Mechanics", videoDesc: "Ultimate timing", explanation: "W, AA, R! R canaliza por 2.6s. Você consegue mover durante R (WR exclusive!)", tips: "R mechanics = tudo!"},{time: "16-24 min", task: "Plant Jump", exercicio: "E na plant", reps: "10x", timing: "Instant", duration: "8 min", difficulty: "⭐⭐ Médio", desc: "Plant jump", videoId: "gqC3uAGRmjA", videoTitle: "Plant Jump E", videoDesc: "E em Blast Cone", explanation: "E salta em plant, E reset, E novamente! 2 jumps rápido!", tips: "Plants em locations específicas"},{time: "24-30 min", task: "Integration", exercicio: "Chain all", reps: "Varied", timing: "-", duration: "6 min", difficulty: "⭐⭐⭐ Difícil", desc: "Tudo junto", videoId: "f_ER9x1r3GQ", videoTitle: "Integration Dia 4", videoDesc: "Tudo integrado", explanation: "Combo 2.1, 3.1, wall jump, plant jump. Tudo junto!", tips: "Smooth = você tá no caminho!"}]},
+            5: {name: "DIA 5 - COMBO PRINCIPAL 15x", focus: "Dominar 3.1 completo", schedule: [{time: "0-1 min", task: "Aquecimento", exercicio: "Mental", reps: "1 min", timing: "-", duration: "1 min", difficulty: "Relaxe", desc: "Prepare", videoId: "FF5T91aVtxs", videoTitle: "Aquecimento", videoDesc: "Mental", explanation: "Mental claro.", tips: "Foco!"},{time: "1-8 min", task: "Quick warm", exercicio: "AA-E-AA 10x", reps: "10x", timing: "~1.1s", duration: "7 min", difficulty: "⭐ Fácil", desc: "Quick", videoId: "FF5T91aVtxs", videoTitle: "AA-E-AA Quick", videoDesc: "Quick warm-up", explanation: "Você já domina. Automático!", tips: "Rápido!"},{time: "8-28 min", task: "FULL COMBO", exercicio: "Q-AA-E-AA-W-AA-R", reps: "15x", timing: "~3.8s", duration: "20 min", difficulty: "⭐⭐⭐⭐ MEGA", desc: "Combo principal 15x PERFEITO!", videoId: "f_ER9x1r3GQ", videoTitle: "COMBO PRINCIPAL COMPLETO", videoDesc: "Q-AA-E-AA-W-AA-R full sequence", explanation: "O COMBO PRINCIPAL! TUDO junto! 15 repetições PERFEITAS. Se errar = restart!", tips: "Cada frame conta. Você consegue fazer 15x perfeito!"},{time: "28-30 min", task: "Final", exercicio: "AA-E-AA", reps: "Max", timing: "-", duration: "2 min", difficulty: "⭐ Fácil", desc: "Sprint final", videoId: "FF5T91aVtxs", videoTitle: "Final Activation", videoDesc: "Desativa mental", explanation: "Você está cansado. Desativa com AA-E-AA rápido.", tips: "You did it! Dia 5 completo!"}]},
+            6: {name: "DIA 6 - TIER 4 ADVANCED", focus: "Advanced + All walls", schedule: [{time: "0-1 min", task: "Aquecimento", exercicio: "Mental", reps: "1 min", timing: "-", duration: "1 min", difficulty: "Relaxe", desc: "Prepare", videoId: "FF5T91aVtxs", videoTitle: "Aquecimento", videoDesc: "Mental", explanation: "Mental claro.", tips: "Foco!"},{time: "1-6 min", task: "Quick combo", exercicio: "3.1 (5x)", reps: "5x", timing: "~3.8s", duration: "5 min", difficulty: "⭐⭐⭐ Difícil", desc: "Quick review", videoId: "f_ER9x1r3GQ", videoTitle: "Quick Combo 3.1", videoDesc: "5x rápido", explanation: "Quick review combo principal.", tips: "Warm-up apenas!"},{time: "6-14 min", task: "Flash Bait", exercicio: "Combo 4.1", reps: "10x", timing: "~1.5s", duration: "8 min", difficulty: "⭐⭐⭐⭐ MEGA", desc: "Flash mid-combo!", videoId: "gqC3uAGRmjA", videoTitle: "Flash Bait Mechanic", videoDesc: "Flash prediction", explanation: "ADVANCED! Flash mid-combo pra bait CC. AA, opponent skill vem, FLASH, skill passa no vazio, você E limpo!", tips: "Prediction mechanic! Muito difícil!"},{time: "14-22 min", task: "All walls", exercicio: "W+E", reps: "10x cada", timing: "Instant", duration: "8 min", difficulty: "⭐⭐⭐ Difícil", desc: "Todos spots", videoId: "gqC3uAGRmjA", videoTitle: "All Walls Practice", videoDesc: "Central, sides, pit, jungle", explanation: "Todos os wall jump spots: Central, sides, pit, blue, red. 10x cada!", tips: "Você domina todos!"},{time: "22-30 min", task: "Review", exercicio: "Integration", reps: "Varied", timing: "-", duration: "8 min", difficulty: "⭐⭐⭐ Difícil", desc: "Tudo junto", videoId: "f_ER9x1r3GQ", videoTitle: "Advanced Integration", videoDesc: "Tudo integrado", explanation: "Chain everything: combos + wall jumps + plant jumps + flash bait!", tips: "Smooth = você é CHALLENGER!"}]},
+            7: {name: "DIA 7 - RANKED READY! 🏆", focus: "Final integration + mental prep", schedule: [{time: "0-1 min", task: "Mental prep", exercicio: "Focus", reps: "1 min", timing: "-", duration: "1 min", difficulty: "Relaxe", desc: "Você está pronto!", videoId: "FF5T91aVtxs", videoTitle: "Final Mental Prep", videoDesc: "Confiança total", explanation: "Você fez 6 dias de treino intenso. Você DOMINA Katarina mechanics. Confiança!", tips: "VOCÊ ESTÁ PRONTO!"},{time: "1-16 min", task: "Full integration", exercicio: "Todos aleatório", reps: "Random", timing: "Varied", duration: "15 min", difficulty: "⭐⭐⭐⭐ MEGA", desc: "Qualquer combo, ordem aleatória", videoId: "f_ER9x1r3GQ", videoTitle: "Full Integration Masterclass", videoDesc: "Tudo integrado", explanation: "INTEGRAÇÃO FINAL! Seu cérebro decide qual combo fazer. Tudo é automático agora!", tips: "Smooth = você é CHALLENGER!"},{time: "16-28 min", task: "Accuracy Test", exercicio: "3.1 × 10", reps: "10x PERFECT", timing: "~3.8s", duration: "12 min", difficulty: "⭐⭐⭐⭐ MEGA", desc: "FINAL TEST! 10x frame-perfect!", videoId: "f_ER9x1r3GQ", videoTitle: "Final Accuracy Test", videoDesc: "10 repetições perfeitas", explanation: "O verdadeiro teste. Você consegue fazer 10x SEM ERRAR? Se sim = você é CHALLENGER LEVEL!", tips: "Você consegue! Confiança!"},{time: "28-30 min", task: "RANKED TIME", exercicio: "🚀🏆", reps: "-", timing: "-", duration: "2 min", difficulty: "⭐ Relax", desc: "VOCÊ ESTÁ PRONTO! ENTRE EM RANKED!", videoId: "gqC3uAGRmjA", videoTitle: "🏆 CHALLENGER TIME!", videoDesc: "Go play!", explanation: "Você fez 7 dias intensos de treino. MONO KATARINA AGORA! Você domina TUDO. VAMO RANKED!", tips: "🏆 CHALLENGER TIME! 🔪 VAMO CARREGAR!"}]}
+        };
+
+        let currentDay = 1;
+        let currentIndex = 0;
+        let timerInterval = null;
+        let timeRemaining = 30 * 60;
+
+        function init() {
+            loadDay(1);
+        }
+
+        function changeDay(day) {
+            currentDay = day;
+            currentIndex = 0;
+            resetTimer();
+            loadDay(day);
+            updateDayButtons();
+        }
+
+        function loadDay(day) {
+            const dayData = trainingDays[day];
+            document.querySelector('header p').textContent = dayData.name + " • " + dayData.focus;
+            loadExercise(0);
+        }
+
+        function loadExercise(index) {
+            const dayData = trainingDays[currentDay];
+            const ex = dayData.schedule[index];
+            currentIndex = index;
+
+            document.getElementById('videoPlayer').src = `https://www.youtube.com/embed/${ex.videoId}`;
+            document.getElementById('videoTitle').textContent = ex.videoTitle;
+            document.getElementById('videoDesc').textContent = ex.videoDesc;
+
+            document.getElementById('explanationText').textContent = ex.explanation;
+            document.getElementById('comboSequence').textContent = ex.exercicio;
+            document.getElementById('timingText').textContent = `Timing: ${ex.timing}`;
+            document.getElementById('objectiveText').textContent = `Objetivo: ${ex.desc}`;
+            document.getElementById('tipsText').textContent = `💡 ${ex.tips}`;
+
+            document.getElementById('repsValue').textContent = ex.reps;
+            document.getElementById('timingValue').textContent = ex.timing;
+            document.getElementById('durationValue').textContent = ex.duration;
+            document.getElementById('difficultyValue').textContent = ex.difficulty;
+
+            document.getElementById('phaseName').textContent = ex.task;
+            document.getElementById('phaseTask').textContent = ex.exercicio;
+
+            updateSchedule();
+        }
+
+        function updateSchedule() {
+            const dayData = trainingDays[currentDay];
+            const html = dayData.schedule.map((ex, idx) => `
+                <li class="schedule-item ${idx === currentIndex ? 'active' : ''}" onclick="loadExercise(${idx})">
+                    <div>
+                        <div class="schedule-task">${ex.task}</div>
+                        <div class="schedule-time">${ex.time}</div>
+                    </div>
+                </li>
+            `).join('');
+            document.getElementById('scheduleList').innerHTML = html;
+        }
+
+        function updateDayButtons() {
+            document.querySelectorAll('.day-btn').forEach((btn, idx) => {
+                if (idx + 1 === currentDay) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+        }
+
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateDisplay();
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    document.getElementById('statusBox').style.display = 'block';
+                    alert('🎉 PARABÉNS!\n\nVocê treinou 30 minutos!\n\n🚀 ENTRE EM RANKED AGORA! 🏆');
+                    resetTimer();
+                    document.getElementById('statusBox').style.display = 'none';
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timeRemaining = 30 * 60;
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            const mins = Math.floor(timeRemaining / 60);
+            const secs = timeRemaining % 60;
+            document.getElementById('timerDisplay').textContent = 
+                `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            const totalTime = 30 * 60;
+            const elapsed = totalTime - timeRemaining;
+            const progress = (elapsed / totalTime) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = Math.round(progress) + '%';
+        }
+
+        function toggleCheck(element) {
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            element.classList.toggle('checked');
+        }
+
+        init();
+    </script>
+</body>
+</html>
